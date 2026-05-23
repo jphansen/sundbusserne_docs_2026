@@ -120,12 +120,22 @@ Afhængigt af rederiets strategi bør følgende prioriteres:
 *Dokumentet er udarbejdet på baggrund af den foreliggende infrastrukturbeskrivelse pr. maj 2026.*
 
 
+Her er et Mermaid-diagram, der viser dataflowet mellem Shopbox, lagersystemet og Economics:
 
+```mermaid
 flowchart LR
     A[Shopbox POS\n(Kassesystem)] -->|Øjeblikkeligt: Salg af lagerregistrerede varer| B[Lagersystem\n(Asvig hosting)]
     A -->|Natligt: Dagsomsætning| C[Economics\n(Regnskabssystem)]
 
     B -->|Lagermodtagelse fra RFS\n& data til told/rapporter| B
+```
+
+**Forklaring til diagrammet:**
+
+- **Shopbox POS** sender **øjeblikkeligt** data om solgte lagerførte varer til **Lagersystemet**, så lagertal altid er opdaterede i realtid.
+- **Shopbox POS** sender hver nat den samlede **dagsomsætning** til **Economics** (regnskabssystemet).
+
+*Ønsker du et mere detaljeret diagram, f.eks. med de ekstra systemer (RFS, Toldbog, m.fl.) eller en sekvensdiagramvariant, siger du bare til.*
 
 
-    
+
