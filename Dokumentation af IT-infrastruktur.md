@@ -18,10 +18,53 @@ Sundbussernes IT-infrastruktur består af en række systemer, der enten er lovpl
 - **Funktion:** Håndterer salg i land og på skibe. Alle varesalg overføres øjeblikkeligt til lagersystemet. Dagsomsætning samles og overføres natligt til Economics.
 - **Leverandør:** Shopbox.dk
 
+**Shopbox POS** sender **øjeblikkeligt** data om solgte lagerførte varer til **Lagersystemet**, så lagertal altid er opdaterede i realtid. **Shopbox POS** sender hver nat den samlede **dagsomsætning** til **Economics** (regnskabssystemet).
+
+
+```mermaid
+graph LR
+    A["Shopbox POS (kassesystem)"]
+    B["Lagersystem (Asvig hosting)"]
+    C["Economics (regnskabssystem)"]
+
+    A -->|"Øjeblikkeligt: salg af lagerførte varer"| B
+    A -->|"Natligt: dagsomsætning"| C
+```
+
 ### 2.2 Lagersystem (told- og frivarer)
 
 - **Funktion:** Samlet lagerstyring for land og skibe. Tæt integreret med Shopbox og Economics. Understøtter automatisk lagermodtagelse fra RFS (hovedleverandør). Leverer data til Toldbog, kommerciel rapportering og “Sundbusbanken” (spreadsheet-baseret). Indeholder også halvtimesrapportering til momsfordeling DK/SE – denne funktion ser ud til at være ophørt efter skift af regnskabsleverandør.
 - **Leverandør:** Asvig (hosting, backup, service)
+
+```mermaid
+graph TD
+    L["Lagersystem (Asvig hosting, backup, service)"]
+
+    RFS["RFS (hovedleverandør)"]
+    SHOP["Shopbox POS"]
+
+    TOLD["Toldbog"]
+    RAPP["Kommerciel rapportering"]
+    BANK["Sundbusbanken (spreadsheet-baseret)"]
+    MOMS["Halvtimes momsrapportering DK/SE"]
+    ECON["Economics (regnskab)"]
+
+    RFS -->|"Automatisk lagermodtagelse"| L
+    SHOP -->|"Øjeblikkelig salgsdata (lagerførte varer)"| L
+    L -->|"Lagerdata"| TOLD
+    L -->|"Lagerdata"| RAPP
+    L -->|"Lagerdata"| BANK
+    L -.->|"Stoppet efter skift af regnskabsleverandør"| MOMS
+    L <-->|"Tæt integration"| ECON
+```
+
+**Forklaring til diagrammet:**
+
+- **Indgående data**: RFS sender automatisk lagermodtagelse (varer). Shopbox sender salg af lagerførte varer i realtid.
+- **Udgående data**: Lagersystemet leverer data til Toldbog, kommerciel rapportering og Sundbusbanken (spreadsheet).
+- **Stoppet funktion**: Halvtimes momsrapportering var tidligere en funktion, men er ophørt (vist med stiplet pil).
+- **Integration**: Tæt integration med Economics (gensidig dataudveksling).
+
 
 ### 2.3 Billetsystem (inkl. billetautomat og webshop)
 
@@ -45,8 +88,54 @@ Sundbussernes IT-infrastruktur består af en række systemer, der enten er lovpl
 
 ### 2.7 Videoovervågning (ISPS)
 
-- **Funktion:** Samlet overvågning med app-adgang til kameraer. PT ingen overvågning på færgen *Pernille*. Der er behov for udvidelse flere steder.
-- **Leverandør:** Ikke specificeret
+- **Funktion:** Samlet overvågning med app-adgang til kameraer. PT ingen overvågning på færgen *Pernille*. Der er behov for udvidelse flere steder. Videoovervågningen er installaleret på *Jeppe*, *Helsingør* og *Helsingborg* samt *København*, alle sites har egen videoserver (undtagen KBH), som kan konfigureres mht. bevægelsesalarmer osv.
+- **Leverandør:** ProKOM A/S
+
+```mermaid
+graph TD
+    APP["App (mobiladgang)"]
+
+    subgraph Sites med egen videoserver
+        J["Jeppe (færge)"]
+        HEL["Helsingør"]
+        HBG["Helsingborg"]
+    end
+
+    subgraph Site uden egen videoserver
+        KBH["København"]
+    end
+
+    subgraph Mangler overvågning
+        PER["Pernille (færge)"]
+    end
+
+    APP -->|"App-adgang til kameraer"| J
+    APP -->|"App-adgang til kameraer"| HEL
+    APP -->|"App-adgang til kameraer"| HBG
+    APP -->|"App-adgang til kameraer"| KBH
+
+    J ---|"Videoserver (bevægelsesalarmer mm.)"| J
+    HEL ---|"Videoserver"| HEL
+    HBG ---|"Videoserver"| HBG
+
+    KBH -.->|"Ingen lokal videoserver"| KBH
+    PER -.->|"PT ingen overvågning"| PER
+
+    LEV["Leverandør: ProKOM A/S"]
+    style LEV fill:#f9f,stroke:#333,stroke-width:2px
+    style PER fill:#ffcccc,stroke:#cc0000,stroke-width:2px
+```
+
+**Forklaring:**
+
+- **Grønne områder:** *Jeppe*, *Helsingør*, *Helsingborg* har hver deres videoserver (understøtter bevægelsesalarmer mv.)
+- **Blå område:** *København* har kameraer, men ingen lokal videoserver
+- **Rød markering:** *Pernille* har ingen overvågning i dag
+- **App-adgang** til alle sites (undtagen Pernille)
+- **Leverandør:** ProKOM A/S
+
+*Yderligere udvidelser er nødvendige flere steder ifølge dokumentationen.*
+
 
 ### 2.8 MiWire – Kommunikation til/fra skibe
 
@@ -90,6 +179,7 @@ Sundbussernes IT-infrastruktur består af en række systemer, der enten er lovpl
 | **MiWire** | Kommunikation til/fra skibe |
 | **Microsoft** | Office365 (Sharepoint, e-mails, filer) |
 | **Thorn** | Webside (www.sundbusserne.dk), domæner |
+| **ProKOM** | Overvågning etc. |
 | **One.com** | Muligvis dele af domæner |
 
 ---
@@ -118,24 +208,4 @@ Afhængigt af rederiets strategi bør følgende prioriteres:
 ---
 
 *Dokumentet er udarbejdet på baggrund af den foreliggende infrastrukturbeskrivelse pr. maj 2026.*
-
-
-Her er et Mermaid-diagram, der viser dataflowet mellem Shopbox, lagersystemet og Economics:
-
-```mermaid
-flowchart LR
-    A[Shopbox POS\n(Kassesystem)] -->|Øjeblikkeligt: Salg af lagerregistrerede varer| B[Lagersystem\n(Asvig hosting)]
-    A -->|Natligt: Dagsomsætning| C[Economics\n(Regnskabssystem)]
-
-    B -->|Lagermodtagelse fra RFS\n& data til told/rapporter| B
-```
-
-**Forklaring til diagrammet:**
-
-- **Shopbox POS** sender **øjeblikkeligt** data om solgte lagerførte varer til **Lagersystemet**, så lagertal altid er opdaterede i realtid.
-- **Shopbox POS** sender hver nat den samlede **dagsomsætning** til **Economics** (regnskabssystemet).
-
-*Ønsker du et mere detaljeret diagram, f.eks. med de ekstra systemer (RFS, Toldbog, m.fl.) eller en sekvensdiagramvariant, siger du bare til.*
-
-
 
