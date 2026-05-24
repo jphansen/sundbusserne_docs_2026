@@ -48,7 +48,7 @@ SBB er et **Excel-baseret system** hostet i **SharePoint Online** (Microsoft 365
 
 ---
 
-## Mermaid-diagrammer (GitHub-kompatibel)
+## Oversigts-diagrammer
 
 ### 1. Pengeflow – fra salgssted til Nordea
 

@@ -1,0 +1,12 @@
+[book]
+title = "Sundbusserne-overlevering-2026"
+authors = ["Jens Peter Hansen"]
+language = "da"
+src = "."
+
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+

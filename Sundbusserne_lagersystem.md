@@ -10,7 +10,6 @@ Sundbussernes CRM er kendetegnet ved en modulær arkitektur – herunder lager- 
 - **Realtidslagerbevægelser**: Alle ind‑ og udgående bevægelser logges automatisk og kan kædes direkte til ordrer, fakturaer, indkøb eller manuelle korrektioner. Dette reducerer fejl og giver et opdatert overblik.
 - **Lagerjustering og optælling**: Der findes indbyggede værktøjer til fysisk optælling, delvis optælling pr. lager eller produkt samt manuel justering ved afvigelser.
 - **Forbindelse til salg og indkøb**: Lageret er integreret med Sundbussernes øvrige moduler. Når en salgsordre eller en indkøbsordre oprettes, opdateres lagerbeholdningen automatisk, og der kan sættes minimums‑ og maksimumsbeholdning for at undgå udsolgte varer.
-- **Automatiseret genbestilling**: På baggrund af de definerede lagerniveauer og parametre som leveringstid kan lagersystemet generere forslag til indkøbsordrer og derved sikre en smidig replenishment‑proces.
 - **Embedded rapportering**: Der følger rapporter med til at analysere lageromsætningshastighed, lagerværdi og bestemte produkters historik. Dette gør det muligt at træffe datadrevne beslutninger.
 
 ### Konklusion

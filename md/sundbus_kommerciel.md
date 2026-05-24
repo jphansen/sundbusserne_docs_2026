@@ -29,7 +29,7 @@ Rapporten fungerer som ét **samlet kommercielt cockpit**. Den sikrer, at ledels
 
 ---
 
-## Mermaid-diagrammer (GitHub-kompatibel)
+## Oversigts-diagrammer
 
 ### 1. Datastrømme i managementrapporten
 

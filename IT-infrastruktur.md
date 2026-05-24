@@ -165,6 +165,8 @@ graph TD
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## 3. Leverandører – samlet overblik
 
 | Leverandør | Ansvarsområde(r) |
@@ -207,5 +209,5 @@ Afhængigt af rederiets strategi bør følgende prioriteres:
 
 ---
 
-*Dokumentet er udarbejdet på baggrund af den foreliggende infrastrukturbeskrivelse pr. maj 2026.*
+
 
